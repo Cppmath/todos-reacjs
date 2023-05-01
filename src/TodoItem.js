@@ -19,6 +19,11 @@ function TodoItem({ todo, todos, state, setState }) {
 	}
 	// handle cancleEdit 
 	const cancleEdit = () => {
+		console.log('cancle edit ', {
+			...state,
+			editIndex: null
+		})
+
 		setState(pre => ({
 			...pre,
 			editIndex: null
@@ -36,12 +41,14 @@ function TodoItem({ todo, todos, state, setState }) {
 			todos: todos,
 			editIndex: null
 		}))
+
+		console.log('endedit ', state)
 	}
 	// handle destroy
 	const destroy = () => {
 		todos.splice(todo.id,1)
         if(todos[0]){
-            todos.forEach((todo,index) => todo.id = index)
+            todos.forEach((todo,index) => todos[index].id = index)
         }
 		setState(pre => ({
 			...pre,
@@ -57,7 +64,7 @@ function TodoItem({ todo, todos, state, setState }) {
 			<button className="destroy" onClick={destroy}></button>
 		</div>
 		<input className="edit" defaultValue= {todo.title}
-				onKeyUp={(e) => {e.keyCode === 13 && endEdit(e) || e.keyCode === 27 && cancleEdit()}}
+				onKeyUp={(e) => {e.keyCode === 13 && endEdit(e) || (e.keyCode === 27 && cancleEdit()) } }
 				onBlur={endEdit}
 		/>
 	</li>

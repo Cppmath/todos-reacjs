@@ -7,7 +7,7 @@ import storage from "./ulti/storage"
 function App() {
 
 	const [State, setState] = useState({
-		todos: [],
+		todos: storage.get(),
 		filter: 'all',
 		filters: {
 			all: () => true,
@@ -16,8 +16,6 @@ function App() {
 		},
 		editIndex: null
 	})
-
-	console.log('>>>>>',State)
 	storage.set(State.todos)
   return (
     <section className="todoapp">

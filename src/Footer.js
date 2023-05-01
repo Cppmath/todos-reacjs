@@ -4,7 +4,7 @@ function Footer({ todos, state, setState}) {
 	const clearCompleted = () => {
 		todos = todos.filter(todo => todo.completed === false)
         if(todos[0]){
-            state.todos.forEach((todo,index) => todo.id = index)
+            todos.forEach((todo,index) => todos[index].id = index)
         }
 		setState(pre => ({
 			...pre,
@@ -17,7 +17,7 @@ function Footer({ todos, state, setState}) {
 		<button onClick ={clearCompleted} className="clear-completed">Clear completed</button>	
 
 	// filterHandle
-	var filterHandle = (type) => {
+	const filterHandle = (type) => {
 		setState(pre => ({
 			...pre,
 			filter: type
