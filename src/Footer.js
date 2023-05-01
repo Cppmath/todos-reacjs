@@ -1,5 +1,6 @@
 
 function Footer({ todos, state, setState}) {
+	// handle clearCompleted
 	const clearCompleted = () => {
 		todos = todos.filter(todo => todo.completed === false)
         if(todos[0]){
@@ -10,27 +11,37 @@ function Footer({ todos, state, setState}) {
 			todos: todos
 		}))
 	}
+
+	// clearElement
 	const clearElement = todos.filter(state.filters.completed).length > 0 && 
-		<button onClick ={clearCompleted} class="clear-completed">Clear completed</button>
+		<button onClick ={clearCompleted} className="clear-completed">Clear completed</button>	
+
+	// filterHandle
+	var filterHandle = (type) => {
+		setState(pre => ({
+			...pre,
+			filter: type
+		}))
+	}
+
+	// filterElement
+	const filterElement = Object.keys(state.filters).map((type, key) =>
+			<li key = {key}>
+				<a onClick = {() => {filterHandle(type)}} className={state.filter === type && "selected" || ""} href="#">
+					{type[0].toUpperCase() + type.slice(1)}
+				</a>
+			</li>
+	)
 
   return (
     <footer className="footer">
 		<span className="todo-count"><strong>{todos.filter(state.filters.active).length}</strong> item left</span>
 		<ul className="filters">
-			<li>
-				<a className="selected" href="#/">All</a>
-			</li>
-			<li>
-				<a href="#/active">Active</a>
-			</li>
-			<li>
-				<a href="#/completed">Completed</a>
-			</li>
+			{filterElement}
 		</ul>
-		{/* <button className="clear-completed">Clear completed</button> */}
 		{clearElement}
 	</footer>
-  );
+  	);
   };
 
 export default Footer;

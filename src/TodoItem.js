@@ -3,44 +3,26 @@ function TodoItem({ todo, todos, state, setState }) {
 	// handle toggle
 	const toggle = () => {
 		todos[todo.id].completed = !todo.completed
-		setState({
-			todos: todos,
-			filter: 'all',
-			filters: {
-				all: () => true,
-				active: todo => !todo.completed,
-				completed: todo => todo.completed
-			},
-			editIndex: null
-		})
+		setState(pre => ({
+			...pre,
+			todos: todos
+		}))
 	}
 	//class cho input
 	const classlist = `${todo.completed && "completed" || ""} ${state.editIndex === todo.id && 'editing'}`
 	// handle startEdit
 	const startEdit = () => {
-		setState({
-			todos: todos,
-			filter: 'all',
-			filters: {
-				all: () => true,
-				active: todo => !todo.completed,
-				completed: todo => todo.completed
-			},
+		setState(pre => ({
+			...pre,
 			editIndex: todo.id
-		})
+		}))
 	}
 	// handle cancleEdit 
 	const cancleEdit = () => {
-		setState({
-			todos: todos,
-			filter: 'all',
-			filters: {
-				all: () => true,
-				active: todo => !todo.completed,
-				completed: todo => todo.completed
-			},
+		setState(pre => ({
+			...pre,
 			editIndex: null
-		})
+		}))
 	}
 	// handle endEdit
 	const endEdit = (e) => { 
@@ -49,17 +31,11 @@ function TodoItem({ todo, todos, state, setState }) {
 		} else {
 			destroy()
 		}
-		setState({
+		setState(pre => ({
+			...pre,
 			todos: todos,
-			filter: 'all',
-			filters: {
-				all: () => true,
-				active: todo => !todo.completed,
-				completed: todo => todo.completed
-			},
 			editIndex: null
-		})
-		console.log('dang edit')
+		}))
 	}
 	// handle destroy
 	const destroy = () => {
@@ -67,16 +43,10 @@ function TodoItem({ todo, todos, state, setState }) {
         if(todos[0]){
             todos.forEach((todo,index) => todo.id = index)
         }
-		setState({
+		setState(pre => ({
+			...pre,
 			todos: todos,
-			filter: 'all',
-			filters: {
-				all: () => true,
-				active: todo => !todo.completed,
-				completed: todo => todo.completed
-			},
-			editIndex: null
-		})
+		}))
 	}
 	
   return (

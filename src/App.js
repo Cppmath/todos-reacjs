@@ -17,6 +17,7 @@ function App() {
 		editIndex: null
 	})
 
+	console.log('>>>>>',State)
 	storage.set(State.todos)
   return (
     <section className="todoapp">

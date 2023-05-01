@@ -6,22 +6,15 @@ function TodoList({ todos, state, setState} ) {
 		todos.forEach(todo => {
             todo.completed = !completed
         })
-		setState({
+		setState(pre => ({
+			...pre,
 			todos: todos,
-			filter: 'all',
-			filters: {
-				all: () => true,
-				active: todo => !todo.completed,
-				completed: todo => todo.completed
-			},
-			editIndex: null
-		})
+		}))
 	}
-
   return (
     <section className="main">
 		<input id="toggle-all" className="toggle-all" type="checkbox"
-			checked ={todos.every(state.filters.completed)}
+			defaultChecked ={todos.every(state.filters.completed)}
 			onChange = {() => toggleAll(todos.every(state.filters.completed))}
 		/>
 		<label htmlFor="toggle-all">Mark all as complete</label>

@@ -3,23 +3,17 @@ function Header( { todos, setState} ) {
   
   const nhapData = e => {
     let x = e.target.value.trim()
-    e.keyCode === 13 && x !== "" && setState(
-      	{
+    e.keyCode === 13 && x !== "" && setState(pre =>
+      	({	
+			...pre,
       		todos: [...todos, 
       			{
 					id: todos.length,
       				title: x,
       				completed: false
       			}
-      		],
-      		filter: 'all',
-      		filters: {
-      			all: () => true,
-      			active: todo => !todo.completed,
-      			completed: todo => todo.completed
-      		},
-      		editIndex: null
-      	}
+      		]
+      	})
       )
   }
 
